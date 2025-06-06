@@ -1,7 +1,8 @@
 {
   "name": "html2ipynb",
+  "publisher": "Yamadori",
   "displayName": "html2ipynb",
-  "description": "",
+  "description": "A tool that converts code blocks in HTML files into Jupyter Notebook.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.100.0"
@@ -14,10 +15,26 @@
   "contributes": {
     "commands": [
       {
-        "command": "html2ipynb.helloWorld",
-        "title": "Hello World"
+        "command": "html2ipynb.convert",
+        "title": "Convert HTML to ipynb."
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "html2ipynb.convert",
+          "when": "resourceExtname == .html",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "html2ipynb.convert",
+          "when": "resourceExtname == .html",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -34,16 +51,19 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.100.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.100.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
-    "eslint": "^9.25.1",
-    "esbuild": "^0.25.3",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^5.8.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.5.2"
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.25.3",
+    "eslint": "^9.25.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0"
   }
 }
