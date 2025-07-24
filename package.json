@@ -3,7 +3,7 @@
   "publisher": "Yamadori",
   "displayName": "html2ipynb",
   "description": "A tool that converts code blocks in HTML files into Jupyter Notebook.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.100.0"
   },
@@ -16,7 +16,7 @@
     "commands": [
       {
         "command": "html2ipynb.convert",
-        "title": "Convert HTML to ipynb."
+        "title": "Convert HTML to ipynb"
       }
     ],
     "menus": {

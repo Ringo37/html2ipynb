@@ -15,43 +15,10 @@ interface Cell {
 interface CodeCell extends Cell {
   cell_type: "code";
   execution_count: number | null;
-  outputs: Output[];
 }
 
 interface MarkdownCell extends Cell {
   cell_type: "markdown";
-}
-
-type Output = ExecuteResult | DisplayData | Stream | Error;
-
-interface BaseOutput {
-  output_type: "execute_result" | "display_data" | "stream" | "error";
-}
-
-interface ExecuteResult extends BaseOutput {
-  output_type: "execute_result";
-  execution_count: number | null;
-  data: { [key: string]: string[] };
-  metadata: object;
-}
-
-interface DisplayData extends BaseOutput {
-  output_type: "display_data";
-  data: { [key: string]: string[] };
-  metadata: object;
-}
-
-interface Stream extends BaseOutput {
-  output_type: "stream";
-  name: "stdout" | "stderr";
-  text: string[];
-}
-
-interface Error extends BaseOutput {
-  output_type: "error";
-  ename: string;
-  evalue: string;
-  traceback: string[];
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -82,10 +49,21 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (cell.hasClass("jp-MarkdownCell")) {
           const sourceDiv = cell.find("div.jp-RenderedMarkdown");
-          const sourceText = sourceDiv.text();
+          const sourceText = sourceDiv.html();
+          if (!sourceText) {
+            return;
+          }
+
           const formattedSource = sourceText
+            .replace(/¶/g, "")
             .replace(/<br\s*\/?>/gi, "\n")
             .replace(/<\/(h[1-6]|p|div)>/gi, "\n")
+            .replace(/<h1[^>]*>/gi, "# ")
+            .replace(/<h2[^>]*>/gi, "## ")
+            .replace(/<h3[^>]*>/gi, "### ")
+            .replace(/<h4[^>]*>/gi, "#### ")
+            .replace(/<h5[^>]*>/gi, "##### ")
+            .replace(/<h6[^>]*>/gi, "###### ")
             .replace(/<[^>]+>/g, "")
             .trim();
 
@@ -128,7 +106,6 @@ export function activate(context: vscode.ExtensionContext) {
             cell_type: "code",
             execution_count: execution_count,
             metadata: {},
-            outputs: [],
             source: formattedSource,
           };
           if (codeCell.source.length > 0) {
