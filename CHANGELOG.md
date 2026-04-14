@@ -11,8 +11,7 @@
   - エラー出力（ename / evalue / traceback）
 - 設定項目 `html2ipynb.includeOutputs` を追加（実行結果を含めるか切り替え可能）
 - エクスプローラーから HTML ファイルを開かずに右クリックで変換できるように対応
-- ユニットテストを追加（`toLines` / `parseOutputs` / `convertHtmlToIpynb` 計 21 件）
-- GitHub Actions による VS Code Marketplace への自動デプロイを設定
+- ユニットテストを追加
 
 ### Changed
 
