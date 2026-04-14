@@ -48,7 +48,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ringo37/html2ipynb.git"
+    "url": "https://github.com/Yarnadori/html2ipynb.git"
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
